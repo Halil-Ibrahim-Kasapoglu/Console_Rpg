@@ -7,7 +7,7 @@ import Manager.UserManager;
 import Player.Player;
 import Scenes.MainMenuScene;
 
-public class main{
+public class Main{
 
 	public static void main(String args[]){
 
