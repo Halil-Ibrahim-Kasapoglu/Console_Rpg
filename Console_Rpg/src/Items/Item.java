@@ -10,6 +10,9 @@ public class Item{
 
 	protected String name;
 	protected int id;
+	public int getId() {
+		return id;
+	}
 
 	protected double marketPrice;
 	public double getMarketPrice() {
