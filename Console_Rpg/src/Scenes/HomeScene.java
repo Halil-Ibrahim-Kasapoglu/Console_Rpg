@@ -10,10 +10,10 @@ public class HomeScene extends Scene{
 
     @Override
     protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("travel", new KernelRunnable() {@Override public void process(){TravelCommand();}}));
-        sceneCommands.add(new KernelCommand("inventory", new KernelRunnable() {@Override public void process(){InventoryCommand();}}));
-        sceneCommands.add(new KernelCommand("store", new KernelRunnable() {@Override public void process(){StoreCommand();}}));
-        sceneCommands.add(new KernelCommand("mainmenu", new KernelRunnable() {@Override public void process(){MainMenu();}}));
+        sceneCommands.add(new KernelCommand("travel", new KernelRunnable() {@Override public void process(String[] params){TravelCommand();}}));
+        sceneCommands.add(new KernelCommand("inventory", new KernelRunnable() {@Override public void process(String[] params){InventoryCommand();}}));
+        sceneCommands.add(new KernelCommand("store", new KernelRunnable() {@Override public void process(String[] params){StoreCommand();}}));
+        sceneCommands.add(new KernelCommand("mainmenu", new KernelRunnable() {@Override public void process(String[] params){MainMenu();}}));
         super.InitializeSceneCommands();
     }
 

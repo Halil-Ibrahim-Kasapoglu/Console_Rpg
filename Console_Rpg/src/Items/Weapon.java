@@ -14,21 +14,17 @@ public class Weapon extends Item{
 	static final String[] weaponAdj = new String[]{"Holy" , "Unstoppable" , "World Destroyer" , "Gold" , "Silver" , "Bronze", "Cursed"};
 
 	private double damage;
-
 	public double getDamage() {
 		return damage;
 	}
 
 	private int level;
 
-	private Random generator = new Random();
-
 	public Weapon(String name , double damage , int level){
-		super();
-		this.name = name;
+		super(name);
 		this.damage = damage;
 		this.level = level;
-		setMarketPrice(Item.defineMarketPrice(level,damage));
+		setMarketPrice(ItemManager.defineMarketPrice(level,damage));
 	}
 
 	public String toString(){
@@ -48,9 +44,9 @@ public class Weapon extends Item{
 
 		Random random = new Random();
 
-		int level = Item.defineLevel();
-		double damage = Item.defineProperty(level);
-		String name = Item.GenerateRandomItemName(weaponAdj , weaponNames);
+		int level = ItemManager.defineLevel();
+		double damage = ItemManager.defineProperty(level);
+		String name = ItemManager.GenerateRandomItemName(weaponAdj , weaponNames);
 
 		return new Weapon(name, damage , level);
 	}

@@ -29,8 +29,8 @@ public class EnemyInteraction extends Scene {
 
     @Override
     protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("attack", new KernelRunnable() {@Override public void process(){AttackCommand();}}));
-        sceneCommands.add(new KernelCommand("ignore", new KernelRunnable() {@Override public void process(){IgnoreCommand();}}));
+        sceneCommands.add(new KernelCommand("attack", new KernelRunnable() {@Override public void process(String[] params){AttackCommand();}}));
+        sceneCommands.add(new KernelCommand("ignore", new KernelRunnable() {@Override public void process(String[] params){IgnoreCommand();}}));
 
         super.InitializeSceneCommands();
     }
@@ -57,32 +57,32 @@ public class EnemyInteraction extends Scene {
             System.out.println("Enemy Health: " + enemy.getHealth());
             sceneCommands.add(new KernelCommand("hit", new KernelRunnable() {
                 @Override
-                public void process() {
+                public void process(String[] params) {
                     HitCommand();
                 }
             }));
             sceneCommands.add(new KernelCommand("simulate", new KernelRunnable() {
                 @Override
-                public void process() {
+                public void process(String[] params) {
                     SimulateCommand();
                 }
             }));
             sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {
                 @Override
-                public void process() {
+                public void process(String[] params) {
                     System.out.println("Canimizi zor kurtardik");
                     IgnoreCommand();
                 }
             }));
         }else {
             System.out.println("You killed enemy");
-            int rewardPrice = RandomManager.Random(1 , 50);
-            int rewardXp = RandomManager.Random(1 ,5);
+            int rewardPrice = enemy.getRewardPrice();
+            int rewardXp = enemy.getRewardXp();
             UserManager.Master().getActivePlayer().IncrementXp(rewardXp);
             UserManager.Master().getActivePlayer().IncrementMoney(rewardPrice);
             sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {
                 @Override
-                public void process() {
+                public void process(String[] params) {
                     IgnoreCommand();
                 }
             }));

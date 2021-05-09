@@ -41,6 +41,13 @@ public class Enemy extends Entity{
         return new Enemy(name , damage , health , level);
     }
 
+    public int getRewardXp(){
+        return damage * 2 + level;
+    }
+    public int getRewardPrice(){
+        return level * 5;
+    }
+
     public void getDamage(double amount){
         health -= amount;
         if (health <= 0){

@@ -12,8 +12,8 @@ public class StoreScene extends Scene {
 
     @Override
     protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("foods", new KernelRunnable() {@Override public void process(){FoodCommand();}}));
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(){BackCommand();}}));
+        sceneCommands.add(new KernelCommand("foods", new KernelRunnable() {@Override public void process(String[] params){FoodCommand();}}));
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
         super.InitializeSceneCommands();
     }
 

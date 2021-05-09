@@ -47,11 +47,13 @@ public class PlayerHealth {
             System.out.println("Your health is already maximum");
             return;
         }
+        int preHealth = currentHealth;
         currentHealth += amount;
         if (currentHealth >= maxHealth) {
             System.out.println("Health fully restored");
             currentHealth = maxHealth;
         }
+        System.out.println("+ " + (currentHealth - preHealth) + " health restored");
     }
 
     @Override

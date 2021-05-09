@@ -39,10 +39,10 @@ public class ItemInteraction extends Scene {
     @Override
     protected void InitializeSceneCommands() {
 
-        if (!equipped && !sold)sceneCommands.add(new KernelCommand("equip", new KernelRunnable() {@Override public void process(){EquipCommand();}}));
-        if (!collected && !sold)sceneCommands.add(new KernelCommand("collect", new KernelRunnable() {@Override public void process(){CollectCommand();}}));
-        if (!sold && !collected)sceneCommands.add(new KernelCommand("quicksell", new KernelRunnable() {@Override public void process(){QuickSellCommand();}}));
-        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(){LeaveCommand();}}));
+        if (!equipped && !sold)sceneCommands.add(new KernelCommand("equip", new KernelRunnable() {@Override public void process(String[] params){EquipCommand();}}));
+        if (!collected && !sold)sceneCommands.add(new KernelCommand("collect", new KernelRunnable() {@Override public void process(String[] params){CollectCommand();}}));
+        if (!sold && !collected)sceneCommands.add(new KernelCommand("quicksell", new KernelRunnable() {@Override public void process(String[] params){QuickSellCommand();}}));
+        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(String[] params){LeaveCommand();}}));
         super.InitializeSceneCommands();
     }
 

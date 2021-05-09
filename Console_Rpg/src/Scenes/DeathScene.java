@@ -21,7 +21,7 @@ public class DeathScene extends Scene{
 
     @Override
     protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("revive", new KernelRunnable() {@Override public void process(){ReviveCommand();}}));
+        sceneCommands.add(new KernelCommand("revive", new KernelRunnable() {@Override public void process(String[] params){ReviveCommand();}}));
         super.InitializeSceneCommands();
     }
 

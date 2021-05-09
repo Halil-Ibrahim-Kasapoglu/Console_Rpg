@@ -16,10 +16,10 @@ public class TravelScene extends Scene{
 
     @Override
     protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("move", new KernelRunnable() {@Override public void process(){MoveCommand();}}));
+        sceneCommands.add(new KernelCommand("move", new KernelRunnable() {@Override public void process(String[] params){MoveCommand();}}));
         //sceneCommands.add(new KernelCommand("xp5", new KernelRunnable() {@Override public void process(){UserManager.Master().getActivePlayer().IncrementXp(5);}}));
         //sceneCommands.add(new KernelCommand("xp20", new KernelRunnable() {@Override public void process(){UserManager.Master().getActivePlayer().IncrementXp(20);}}));
-        sceneCommands.add(new KernelCommand("home", new KernelRunnable() {@Override public void process(){HomeCommand();}}));
+        sceneCommands.add(new KernelCommand("home", new KernelRunnable() {@Override public void process(String[] params){HomeCommand();}}));
         super.InitializeSceneCommands();
 
     }

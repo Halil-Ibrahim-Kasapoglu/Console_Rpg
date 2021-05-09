@@ -9,8 +9,8 @@ public class MainMenuScene extends Scene {
 
     @Override
     protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("play", new KernelRunnable() {@Override public void process(){PlayCommand();}}));
-        sceneCommands.add(new KernelCommand("quit", new KernelRunnable() {@Override public void process(){QuitCommand();}}));
+        sceneCommands.add(new KernelCommand("play", new KernelRunnable() {@Override public void process(String[] params){PlayCommand();}}));
+        sceneCommands.add(new KernelCommand("quit", new KernelRunnable() {@Override public void process(String[] params){QuitCommand();}}));
         super.InitializeSceneCommands();
 
     }

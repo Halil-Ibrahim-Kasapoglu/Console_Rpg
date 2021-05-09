@@ -27,7 +27,7 @@ public class Kernel {
 			kernelScanner = new Scanner(System.in);
 		}
 		System.out.print(": ");
-		return kernelScanner.next();
+		return kernelScanner.nextLine();
 	}
 
 	public Kernel() {
@@ -41,31 +41,31 @@ public class Kernel {
 		directCommands = new ArrayList<KernelCommand>();
 		directCommands.add(new KernelCommand("!!", new KernelRunnable() {
 			@Override
-			public void process() {
+			public void process(String[] params) {
 				DisplayDirectCommands();
 			}
 		}));
 		directCommands.add(new KernelCommand("!display", new KernelRunnable() {
 			@Override
-			public void process() {
+			public void process(String[] params) {
 				DisplayAvailableCommands();
 			}
 		}));
 		directCommands.add(new KernelCommand("!activeScene", new KernelRunnable() {
 			@Override
-			public void process() {
+			public void process(String[] params) {
 				DisplayActiveScene();
 			}
 		}));
 		directCommands.add(new KernelCommand("!player", new KernelRunnable() {
 			@Override
-			public void process() {
+			public void process(String[] params) {
 				DisplayActivePlayer();
 			}
 		}));
 		directCommands.add(new KernelCommand("!equipped", new KernelRunnable() {
 			@Override
-			public void process() {
+			public void process(String[] params) {
 				DisplayEquippedInventory();
 			}
 		}));
@@ -78,29 +78,38 @@ public class Kernel {
 
 	public void ProcessCommand(String commandCode) {
 
-		if (UtilityHelper.isNumeric(commandCode)) {
-			int commandIndex = Integer.parseInt(commandCode);
+		String stripped = commandCode.strip();
+		String parsed[] = stripped.split("\\s+");
+		String commandBase = parsed[0];
+		String[] params = null;
+		if (parsed.length > 1) {
+			params = Arrays.copyOfRange(parsed, 1, parsed.length);
+		}
+
+
+		if (UtilityHelper.isNumeric(commandBase)) {
+			int commandIndex = Integer.parseInt(commandBase);
 			if (commandIndex >= 1 && commandIndex <= availableCommands.size()) {
-				availableCommands.get(commandIndex - 1).Process();
+				availableCommands.get(commandIndex - 1).Process(params);
 				return;
 			}
 		}
 
 		for (KernelCommand command : availableCommands) {
-			if (command.getCommandCode().equals(commandCode)) {
-				command.Process();
+			if (command.getCommandCode().equals(commandBase)) {
+				command.Process(params);
 				return;
 			}
 		}
 
 		for (KernelCommand command : directCommands) {
-			if (command.getCommandCode().equals(commandCode)) {
-				command.Process();
+			if (command.getCommandCode().equals(commandBase)) {
+				command.Process(params);
 				return;
 			}
 		}
 
-		System.out.println("OOPS! There is no such command as " + commandCode);
+		System.out.println("OOPS! There is no such command as " + commandBase);
 		System.out.println("You can try using ! to access direct commands. In order to check available direct commands type '!!' without quotes");
 
 	}
@@ -113,7 +122,11 @@ public class Kernel {
 
 		int commandIndex = 1;
 		for (KernelCommand command : availableCommands) {
-			System.out.println("(" + commandIndex + ") " + command.getCommandCode());
+			System.out.print("(" + commandIndex + ") " + command.getCommandCode() + " ");
+			for (String paramTitle : command.getParamTitles()){
+				System.out.print("@param(" + paramTitle + ")");
+			}
+			System.out.println();
 			commandIndex++;
 		}
 		System.out.println("There are " + Integer.toString(availableCommands.size()) + " commands available");

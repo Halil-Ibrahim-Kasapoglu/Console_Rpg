@@ -16,14 +16,12 @@ public class Armor extends Item{
 	}
 
 	private int level;
-	private String name;
 
 	public Armor(String name , double armor , int level){
-		super();
-		this.name = name;
+		super(name);
 		this.armor = armor;
 		this.level = level;
-		setMarketPrice(Item.defineMarketPrice(this.level , this.armor));
+		setMarketPrice(ItemManager.defineMarketPrice(this.level , this.armor));
 	}
 
 	public String toString(){
@@ -41,9 +39,9 @@ public class Armor extends Item{
 
 	public static Armor GenerateRandomArmor(){
 
-		int level = Item.defineLevel();
-		double armor = Item.defineProperty(level);
-		String name = Items.Item.GenerateRandomItemName(armorAdj , armorNames);
+		int level = ItemManager.defineLevel();
+		double armor = ItemManager.defineProperty(level);
+		String name = ItemManager.GenerateRandomItemName(armorAdj , armorNames);
 
 		return new Armor(name, armor , level);
 	}

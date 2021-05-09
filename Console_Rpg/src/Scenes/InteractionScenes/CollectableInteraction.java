@@ -30,9 +30,9 @@ public class CollectableInteraction extends Scene {
     @Override
     protected void InitializeSceneCommands() {
 
-        sceneCommands.add(new KernelCommand("sell", new KernelRunnable() {@Override public void process(){SellCommand();}}));
+        sceneCommands.add(new KernelCommand("sell", new KernelRunnable() {@Override public void process(String[] params){SellCommand();}}));
         //sceneCommands.add(new KernelCommand("sell", new KernelRunnable() {@Override public void process(){AttackCommand();}}));
-        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(){LeaveCommand();}}));
+        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(String[] params){LeaveCommand();}}));
 
         super.InitializeSceneCommands();
     }

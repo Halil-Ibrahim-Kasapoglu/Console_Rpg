@@ -4,7 +4,7 @@ import Items.Item;
 
 public class Consumable extends Item {
 
-    public void Consume(){
-
+    public Consumable(String name){
+        super(name);
     }
 }
