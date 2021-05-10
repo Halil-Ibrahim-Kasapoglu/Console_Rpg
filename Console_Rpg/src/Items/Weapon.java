@@ -51,6 +51,15 @@ public class Weapon extends Item{
 		return new Weapon(name, damage , level);
 	}
 
+	@Override
+	public double[] getAttributes() {
+		return new double[]{this.damage};
+	}
+
+	@Override
+	public String[] getAttributesString() {
+		return new String[]{"damage"};
+	}
 
 
 }

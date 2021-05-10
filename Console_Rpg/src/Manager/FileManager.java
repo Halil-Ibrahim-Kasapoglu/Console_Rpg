@@ -17,6 +17,18 @@ public class FileManager {
         return ReadFileAsArray(path , 0);
     }
 
+    static public String ReadAll(String path){
+        ArrayList<String> lines = ReadFileAsArray(path);
+
+        String result = "";
+
+        for (String line : lines){
+            result += line + "\n";
+        }
+
+        return  result;
+    }
+
     static public ArrayList<String> ReadFileAsArray(String path, int skippedLines){
         ArrayList<String> lines = new ArrayList<String>();
 

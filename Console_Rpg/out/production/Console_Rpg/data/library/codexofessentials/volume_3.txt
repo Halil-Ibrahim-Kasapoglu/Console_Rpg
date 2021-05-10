@@ -1,0 +1,9 @@
+Oyunda karsiniza Item, Collactable veya Enemy gibi cesitli objeler
+cikabilir. Karsiniza bunlar cikarsa ne yaparsaniz yapin ama
+Nightmare Johny ye bulasmayin. Baska bilmeniz gereken bise yok.
+
+Daha fazla bilgi icin Console Rpg atasozlerini bakiniz :
+
+* Para etmeyen urun satilmaz
+* Ciplak elle yigitlik taslanmaz
+* Seviye atlanacak yerde havuc yenmez

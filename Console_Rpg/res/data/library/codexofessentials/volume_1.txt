@@ -1,0 +1,27 @@
+Console Rpg kullanıcısının sadece console
+komutları üzerinden etkileşebileceği çok
+özel bir oyundur. Bu durumda nasıl komut gireceğini
+bilmek her oyununcunun boynunun borcudur.
+
+Console Rpg input sistemi Kernel adi verilen ozel bir birim
+tarafindan kontrol edilir. Kernel size herhangi bir Sahnede
+kullanabileceginiz komutlari gosterir
+Kernel size
+(1) play
+(2) leave
+seklinde birkac komut sunuyorsa bunlara available commands denir.
+Herhangi bir available commandi secmek icin ya komutun ismini yazin
+: play
+ve ya komutun basinda bulunan komut row-id yi girin
+: 1
+
+Bunlar basit komutlar. Bazi komutlar sizden parametre girmenizi bekler.
+Paremetreli komutlarin genel yapisi
+(row-id) command @param(hint1) @param(hint2) ...
+seklindedir.
+
+Simdi uygulamali olarak bir komuta paremetre verelim
+(1) buy @param(food-id)
+simdi buy komutunu 3 numarali food id yi alacak sekilde yazalim
+: buy 3
+Iste bu kadar basit.

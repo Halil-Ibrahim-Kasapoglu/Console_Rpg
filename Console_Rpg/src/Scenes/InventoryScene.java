@@ -7,6 +7,7 @@ import Manager.Kernel.KernelCommand;
 import Manager.Kernel.KernelRunnable;
 import Manager.SceneManager;
 import Manager.UserManager;
+import Scenes.InspectionScenes.ItemInspectScene;
 import UI.MultipageView;
 import Utility.UtilityHelper;
 

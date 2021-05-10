@@ -25,7 +25,6 @@ public class MultipageView {
 
     private int maxPage;
     private int rowCnt;
-
     public int getRowCnt() {
         return rowCnt;
     }

@@ -39,5 +39,11 @@ public class Item{
 		this.name = name;
 	}
 
+	public double[] getAttributes(){
+		return new double[]{};
+	}
+	public String[] getAttributesString(){
+		return new String[]{};
+	}
 
 }

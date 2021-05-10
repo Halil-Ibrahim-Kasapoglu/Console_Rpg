@@ -46,4 +46,13 @@ public class Armor extends Item{
 		return new Armor(name, armor , level);
 	}
 
+	@Override
+	public double[] getAttributes() {
+		return new double[]{this.armor};
+	}
+
+	@Override
+	public String[] getAttributesString() {
+		return new String[]{"armor"};
+	}
 }

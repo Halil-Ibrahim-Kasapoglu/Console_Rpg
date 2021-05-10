@@ -20,4 +20,9 @@ public class UtilityHelper {
         return String.format("%.2f",Round2(d));
     }
 
+    public static String CompressedString(String str){
+        return str.toLowerCase().replace(" " , "");
+    }
+
+
 }

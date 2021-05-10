@@ -1,0 +1,7 @@
+Oyunda bulunan tek command turu active commands degildir.
+Kernel kendi bunyesinde sahneden bagimsiz direct command diye
+ozel bir tur komutlar dizisini barindirid. Direct commandlar baslarinda
+"!" (tirnaklar olmadan) barindirir. Tum direct commandlerin listesini
+gormek icin "!!" (tirnaklar olmadan) yazabilirsiniz.
+Direct commandler size oyuncunun tum statlerini gostermek gibi
+havali ozelliklere erisim hakki saglar

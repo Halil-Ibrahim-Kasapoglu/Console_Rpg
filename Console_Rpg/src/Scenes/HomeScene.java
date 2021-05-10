@@ -4,6 +4,7 @@ import Manager.Kernel.Kernel;
 import Manager.Kernel.KernelCommand;
 import Manager.Kernel.KernelRunnable;
 import Manager.SceneManager;
+import Scenes.Library.LibraryScene;
 import Scenes.StoreScenes.StoreScene;
 
 public class HomeScene extends Scene{
@@ -13,6 +14,7 @@ public class HomeScene extends Scene{
         sceneCommands.add(new KernelCommand("travel", new KernelRunnable() {@Override public void process(String[] params){TravelCommand();}}));
         sceneCommands.add(new KernelCommand("inventory", new KernelRunnable() {@Override public void process(String[] params){InventoryCommand();}}));
         sceneCommands.add(new KernelCommand("store", new KernelRunnable() {@Override public void process(String[] params){StoreCommand();}}));
+        sceneCommands.add(new KernelCommand("library", new KernelRunnable() {@Override public void process(String[] params){LibraryCommand();}}));
         sceneCommands.add(new KernelCommand("mainmenu", new KernelRunnable() {@Override public void process(String[] params){MainMenu();}}));
         super.InitializeSceneCommands();
     }
@@ -35,6 +37,7 @@ public class HomeScene extends Scene{
     private void StoreCommand(){
         SceneManager.Master().pushScene(new StoreScene());
     }
+    private void LibraryCommand() {SceneManager.Master().pushScene(new LibraryScene());}
     private void MainMenu(){
         SceneManager.Master().popScene();
     }

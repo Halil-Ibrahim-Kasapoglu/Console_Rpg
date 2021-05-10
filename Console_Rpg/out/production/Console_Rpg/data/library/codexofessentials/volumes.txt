@@ -1,0 +1,3 @@
+Interaction With Console
+Mastering Direct Commands
+Objects To Be Encountered Most Likely

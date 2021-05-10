@@ -1,4 +1,4 @@
-package Scenes;
+package Scenes.InspectionScenes;
 
 import Inventory.Inventory;
 import Inventory.EquippedItem;
@@ -12,6 +12,7 @@ import Manager.RandomManager;
 import Manager.SceneManager;
 import Manager.UserManager;
 import Player.Player;
+import Scenes.Scene;
 
 import java.util.ArrayList;
 
