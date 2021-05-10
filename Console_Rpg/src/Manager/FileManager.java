@@ -52,29 +52,23 @@ public class FileManager {
 
         return lines;
     }
-//
-//    static public ArrayList<String> ReadFileAsArray(String path, int skippedLines){
-//        ArrayList<String> lines = new ArrayList<String>();
-//
-//        try {
-//            File file = new File(path);
-//            Scanner reader = new Scanner(file);
-//            while (reader.hasNextLine()){
-//                String row = reader.nextLine();
-//                if (skippedLines > 0){
-//                    skippedLines -= 1;
-//                }else {
-//                    lines.add(row);
-//                }
-//            }
-//            reader.close();
-//        }catch (FileNotFoundException e){
-//            System.out.println("An error occurred while reading " + path);
-//            e.printStackTrace();
-//        }
-//
-//        return lines;
-//    }
+
+    public static void SerializeObject(Object serializable , String serializationPath){
+        try {
+            FileOutputStream fileOut = new FileOutputStream(serializationPath);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(serializable);
+            out.close();
+            fileOut.close();
+            System.out.println("Serialized data is saved in " + serializationPath);
+        } catch (IOException i) {
+            System.out.println("Serialization Error Occurred");
+            i.printStackTrace();
+        }
+    }
+
+
+
 
     // seems deprecated
     static public String Read_CSV(String path , boolean skipTitles){

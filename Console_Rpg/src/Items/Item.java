@@ -4,9 +4,10 @@ import Manager.RandomManager;
 import Manager.UserManager;
 import Utility.UtilityHelper;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Item{
+public class Item implements Serializable {
 
 	protected String name;
 	protected int id;

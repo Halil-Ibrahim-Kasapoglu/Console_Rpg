@@ -5,11 +5,12 @@ import Items.Item;
 import Items.Weapon;
 import Manager.UserManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Inventory {
+public class Inventory implements Serializable {
 
     private ArrayList<Item> itemArrayList;
     public ArrayList<Item> getItemArrayList() {

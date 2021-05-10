@@ -6,7 +6,9 @@ import Manager.SceneManager;
 import Scenes.DeathScene;
 import Utility.UtilityHelper;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
     private boolean alive;
     public boolean isAlive() {
@@ -22,30 +24,11 @@ public class Player {
     }
 
     private int level;
-    public void setLevel(int level) {
-        this.level = level;
-    }
     public int getLevel() {
         return level;
     }
-
-    private double xp;
-    public double getXp() {
-        return xp;
-    }
-
-    public void IncrementXp(double amount){
-        System.out.println("+ "+amount + " xp");
-        xp += amount;
-        while (xpFunction(getLevel()) <= xp){
-            levelUp();
-        }
-    }
-
-    // total xp needed to reach level n;
-    // might be broken
-    private double xpFunction(int level){
-        return 10*level + (level / (1 + Math.log(2))) * (Math.pow(2,Math.log(level)));
+    public void setLevel(int level) {
+        this.level = level;
     }
     public void levelUp(){
         setLevel(getLevel()+1);
@@ -54,9 +37,37 @@ public class Player {
     }
 
 
+    private double xp;
+    public double getXp() {
+        return xp;
+    }
+    public void IncrementXp(double amount){
+        System.out.println("+ "+amount + " xp");
+        xp += amount;
+        while (xpFunction(getLevel()) <= xp){
+            levelUp();
+        }
+    }
+    // total xp needed to reach level n;
+    // might be broken
+    private double xpFunction(int level){
+        return 10*level + (level / (1 + Math.log(2))) * (Math.pow(2,Math.log(level)));
+    }
+
+
     private double money;
     public double getMoney() {
         return money;
+    }
+    public void IncrementMoney(double amount) {
+        System.out.println("+ "+amount + " money");
+        this.money += amount;
+    }
+    public void payMoney(double amount){
+        double pre = money;
+        money -= amount;
+        money = Math.max(0 , money);
+        System.out.println("- "+(pre - money)+ " money");
     }
 
     private Inventory inventory;
@@ -65,7 +76,6 @@ public class Player {
     }
 
     public Player(){
-
         inventory = new Inventory();
         health = new PlayerHealth( 100);
         alive = true;
@@ -74,18 +84,9 @@ public class Player {
         level = 1;
     }
 
-    public void IncrementMoney(double amount)
-    {
-        System.out.println("+ "+amount + " money");
-        this.money += amount;
-    }
 
-    public void payMoney(double amount){
-        double pre = money;
-        money -= amount;
-        money = Math.max(0 , money);
-        System.out.println("- "+(pre - money)+ " money");
-    }
+
+
 
     public void GotHit(int damage , Enemy enemy){
         health.applyDamage(damage);
@@ -102,6 +103,7 @@ public class Player {
         setAlive(false);
         SceneManager.Master().emptyAndPushScene(new DeathScene());
     }
+
     public void Revive(){
         double revivalCost = 10.0;
         payMoney(revivalCost);

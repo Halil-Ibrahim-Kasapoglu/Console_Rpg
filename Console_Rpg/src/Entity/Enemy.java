@@ -6,13 +6,11 @@ import Manager.UserManager;
 public class Enemy extends Entity{
 
     private int damage;
-
     public int getDamage() {
         return damage;
     }
 
     private int health;
-
     public int getHealth() {
         return health;
     }

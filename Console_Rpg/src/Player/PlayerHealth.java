@@ -1,15 +1,15 @@
 package Player;
 
-public class PlayerHealth {
+import java.io.Serializable;
+
+public class PlayerHealth implements Serializable {
 
     private int currentHealth;
-
     public int getCurrentHealth() {
         return currentHealth;
     }
 
     private int maxHealth;
-
     public int getMaxHealth() {
         return maxHealth;
     }
