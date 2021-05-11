@@ -18,28 +18,24 @@ import java.util.ArrayList;
 
 public class ItemInspectScene extends Scene {
 
-    // FIXME: 9.05.2021 beni de duzenleyin lutfen
-
     private Item item;
 
     public ItemInspectScene(Item item){
         super();
         this.item = item;
-        LoadSceneCommands();
     }
 
-    private void LoadSceneCommands(){
-        sceneCommands.clear();
+    @Override
+    protected void LoadSceneCommands(){
+        super.LoadSceneCommands();
         Inventory inventory = UserManager.Master().getActivePlayer().getInventory();
         if (inventory.isContains(item)){
-
             if (!inventory.isEquipped(item)){
                 sceneCommands.add(new KernelCommand("equip", new KernelRunnable() {
                     @Override
                     public void process(String[] params) {
                         inventory.Equip(item);
-                        LoadSceneCommands();
-                        OnLoad();
+                        OnSceneDisplayed();
                     }
                 }));
             }else {
@@ -47,8 +43,7 @@ public class ItemInspectScene extends Scene {
                     @Override
                     public void process(String[] params) {
                         inventory.Unequip(EquippedItem.type(item));
-                        LoadSceneCommands();
-                        OnLoad();
+                        OnSceneDisplayed();
                     }
                 }));
             }
@@ -57,31 +52,18 @@ public class ItemInspectScene extends Scene {
                 @Override
                 public void process(String[] params) {
                     inventory.sellItem(item);
-                    LoadSceneCommands();
-                    OnLoad();
+                    OnSceneDisplayed();
                 }
             }));
         }
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     @Override
-    protected void InitializeSceneCommands() {
-        super.InitializeSceneCommands();
-    }
-
-    @Override
-    public void OnLoad() {
-        super.OnLoad();
+    public void OnSceneDraw() {
+        super.OnSceneDraw();
 
         System.out.println("Inspecting Item " + item.getName());
         System.out.println(item);
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
     }
-
-    private void BackCommand(){
-        SceneManager.Master().popScene();
-    }
-
 }

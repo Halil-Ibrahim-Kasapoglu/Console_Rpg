@@ -19,28 +19,21 @@ public class FoodStoreScene extends Scene {
     };
 
     @Override
-    protected void InitializeSceneCommands() {
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("buy", new KernelRunnable() {@Override public void process(String[] params){BuyCommand(params[0]);}} , new String[]{"food-id"} ));
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
-        super.InitializeSceneCommands();
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
         int row = 1;
-        System.out.println("=======================");
         for (ConsumableFood food : foodList){
             System.out.println( "("+row+") " + food);
             row += 1;
         }
-        System.out.println("=======================");
 
-        //System.out.println("Nothing to see yet");
-
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
     }
 
     private void BuyCommand(String idStr){
@@ -73,7 +66,4 @@ public class FoodStoreScene extends Scene {
             System.out.println("Not enough money");
         }
     };
-    private void BackCommand(){
-        SceneManager.Master().popScene();
-    }
 }

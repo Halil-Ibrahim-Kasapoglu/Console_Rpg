@@ -19,21 +19,32 @@ public class BookScene extends Scene {
 
     public BookScene(String bookPath){
         this.bookPath = bookPath;
-        itemView = new MultipageView(5, getAvailableVolumes());
     }
 
     @Override
-    protected void InitializeSceneCommands() {
-
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("read", new KernelRunnable() {
             @Override
             public void process(String[] params) {
                 ReadCommand(params);
             }
         }, new String[]{"row-id"}));
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
+    }
 
-        super.InitializeSceneCommands();
+    @Override
+    public void OnSceneCreated() {
+        super.OnSceneCreated();
+        itemView = new MultipageView(5, getAvailableVolumes());
+    }
+
+    @Override
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
+        System.out.println("Select a volume and start reading");
+        itemView.setRows(getAvailableVolumes());
+        itemView.loadPage(itemView.getCurrentPage());
     }
 
     private ArrayList<String> getAvailableVolumes(){
@@ -41,42 +52,20 @@ public class BookScene extends Scene {
         return FileManager.ReadFileAsArray("data/library/" + bookPath + "/volumes.txt");
     }
 
-    @Override
-    public void OnLoad() {
-        super.OnLoad();
-
-        System.out.println("Select a volume and start reading");
-        itemView.setRows(getAvailableVolumes());
-        LoadContent(itemView.getCurrentPage());
-
-    }
-
-    private void LoadContent(int page){
-        if (!itemView.loadPage(page)) return;
-
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
-    }
-
     private void ReadCommand(String[] params){
-        int row;
-        try{
-            row = Integer.parseInt(params[0]);
-        }catch (NumberFormatException e){
+
+        if (!UtilityHelper.isNumeric(params[0])){
             System.out.println("row param must be integer");
             return;
         }
+        int row = Integer.parseInt(params[0]);
         if (row < 1 || row > itemView.getRowCnt()){
             System.out.println("no such book in row: " + row);
             return;
         }
 
         String volumeContent = FileManager.ReadAll("data/library/" + bookPath + "/" + "volume_" + row + ".txt");
-        System.out.println(volumeContent );
-    }
-
-    private void BackCommand(){
-        SceneManager.Master().popScene();
+        System.out.println(volumeContent);
     }
 
 }

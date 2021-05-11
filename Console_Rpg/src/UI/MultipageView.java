@@ -45,22 +45,22 @@ public class MultipageView {
             return false;
         }
         if (rows.size() == 0){
-            System.out.println("===================");
+            System.out.println("-------------------");
             System.out.println(noContentText);
-            System.out.println("===================");
+            System.out.println("-------------------");
             return true;
         }
 
         this.currentPage = page;
 
-        System.out.println("======== " + " page: " + page + "  ========");
+        System.out.println("------- " + " page: " + page + " -------");
 
         int startingRow = rowPerPage * (page-1) + 1;
 
         for (int row = startingRow ; row < startingRow + rowPerPage && row <= rows.size(); row ++){
             System.out.println("("+row+") " + rows.get(row-1));
         }
-        System.out.println("====== " + 1 + " <== + ==> " + maxPage + " ======");
+        System.out.println("------- " + 1 + " <+> " + maxPage + " -------");
         return true;
     }
 }

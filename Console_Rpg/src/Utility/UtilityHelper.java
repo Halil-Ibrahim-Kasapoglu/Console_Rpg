@@ -24,5 +24,4 @@ public class UtilityHelper {
         return str.toLowerCase().replace(" " , "");
     }
 
-
 }

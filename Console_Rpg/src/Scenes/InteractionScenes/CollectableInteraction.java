@@ -18,46 +18,37 @@ public class CollectableInteraction extends Scene {
     private Collectable collectable;
     private boolean sold = false;
 
-    public CollectableInteraction(){
-        super();
-        this.collectable = generateCollectable();
-    }
-
     private Collectable generateCollectable(){
         return Collectable.RandomCollectable();
     }
 
     @Override
-    protected void InitializeSceneCommands() {
-
-        sceneCommands.add(new KernelCommand("sell", new KernelRunnable() {@Override public void process(String[] params){SellCommand();}}));
-        //sceneCommands.add(new KernelCommand("sell", new KernelRunnable() {@Override public void process(){AttackCommand();}}));
-        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(String[] params){LeaveCommand();}}));
-
-        super.InitializeSceneCommands();
+    public void OnSceneCreated() {
+        super.OnSceneCreated();
+        this.collectable = generateCollectable();
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
+        if (!sold) sceneCommands.add(new KernelCommand("sell", new KernelRunnable() {@Override public void process(String[] params){SellCommand();}}));
+        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
+    }
+
+    @Override
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
 
         System.out.println("You have found a collectable\n" + collectable.getName());
         System.out.println("Rarity: " + collectable.getRarity() + " ( " + collectable.getRarityLevel() + " ) ");
         System.out.println("Market Price: " + collectable.getMarketPrice());
-        System.out.println("Category :" + collectable.getCategory());
+        System.out.println("Category: " + collectable.getCategory());
         System.out.println(collectable.getResponse());
-        System.out.println("=======================");
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
     }
 
     private void SellCommand(){
         sold = true;
         UserManager.Master().getActivePlayer().IncrementMoney(collectable.getMarketPrice());
-        sceneCommands.remove(0);
-        Kernel.Master().DisplayAvailableCommands();
-    }
-    private void LeaveCommand(){
-        SceneManager.Master().popScene();
+        OnSceneDisplayed();
     }
 }

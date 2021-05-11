@@ -16,54 +16,43 @@ public class LibraryScene extends Scene {
 
     private MultipageView itemView;
 
-    public LibraryScene(){
+    @Override
+    public void OnSceneCreated() {
+        super.OnSceneCreated();
         itemView = new MultipageView(5, getAvailableBooks());
     }
 
     @Override
-    protected void InitializeSceneCommands() {
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
+        System.out.println("Welcome to the source of unlimited wisdom in Console Rpg");
+        itemView.setRows(getAvailableBooks());
+        itemView.loadPage(itemView.getCurrentPage());
+    }
 
+    @Override
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("read", new KernelRunnable() {
             @Override
             public void process(String[] params) {
                 ReadCommand(params);
             }
         }, new String[]{"row-id"}));
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
-
-
-        super.InitializeSceneCommands();
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     private ArrayList<String> getAvailableBooks(){
         return FileManager.ReadFileAsArray("data/library/books.txt");
     }
 
-    @Override
-    public void OnLoad() {
-        super.OnLoad();
-
-        System.out.println("Welcome to the source of unlimited wisdom in Console Rpg");
-        itemView.setRows(getAvailableBooks());
-        LoadContent(itemView.getCurrentPage());
-
-    }
-
-    private void LoadContent(int page){
-        if (!itemView.loadPage(page)) return;
-
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
-    }
-
     private void ReadCommand(String[] params){
-        int row;
-        try{
-            row = Integer.parseInt(params[0]);
-        }catch (NumberFormatException e){
+        if (!UtilityHelper.isNumeric(params[0])){
             System.out.println("row param must be integer");
             return;
         }
+        int row = Integer.parseInt(params[0]);
+
         if (row < 1 || row > itemView.getRowCnt()){
             System.out.println("no such book in row: " + row);
             return;
@@ -72,9 +61,4 @@ public class LibraryScene extends Scene {
         String bookPath = UtilityHelper.CompressedString(getAvailableBooks().get(row - 1));
         SceneManager.Master().pushScene(new BookScene(bookPath));
     }
-
-    private void BackCommand(){
-        SceneManager.Master().popScene();
-    }
-
 }

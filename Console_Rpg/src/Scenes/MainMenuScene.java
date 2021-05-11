@@ -8,29 +8,20 @@ import Manager.SceneManager;
 public class MainMenuScene extends Scene {
 
     @Override
-    protected void InitializeSceneCommands() {
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("play", new KernelRunnable() {@Override public void process(String[] params){PlayCommand();}}));
-        sceneCommands.add(new KernelCommand("quit", new KernelRunnable() {@Override public void process(String[] params){QuitCommand();}}));
-        super.InitializeSceneCommands();
-
+        sceneCommands.add(new KernelCommand("save_and_quit", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
         System.out.println("Welcome To Console RPG");
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
     }
 
     private void PlayCommand(){
         SceneManager.Master().pushScene(new HomeScene());
     }
-
-    private void QuitCommand(){
-        SceneManager.Master().popScene();
-    }
-
 
 }

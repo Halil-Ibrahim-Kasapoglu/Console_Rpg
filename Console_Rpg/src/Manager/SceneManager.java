@@ -16,24 +16,24 @@ public class SceneManager{
 	}
 
 	private Stack<Scene> sceneStack;
-	private Scene activeScene;
 
+
+	private Scene activeScene;
+	public Scene getActiveScene() {
+		return activeScene;
+	}
+	public void setActiveScene(Scene activeScene) {
+		if (activeScene == null){
+			return;
+		}
+		this.activeScene = activeScene;
+		Kernel.ClearConsole();
+		this.activeScene.OnSceneDisplayed();
+	}
 
 	public SceneManager(){
 		sceneStack = new Stack<Scene>();
 	}
-
-	public void setActiveScene(Scene activeScene) {
-		this.activeScene = activeScene;
-		if (activeScene!=null) {
-			Kernel.ClearConsole();
-			activeScene.OnLoad();
-		}
-	}
-	public Scene getActiveScene() {
-		return activeScene;
-	}
-
 
 	public void emptyAndPushScene(Scene scene){
 		while (!sceneStack.empty()){
@@ -43,9 +43,11 @@ public class SceneManager{
 	}
 
 	public void pushScene(Scene scene){
+		scene.OnSceneCreated();
 		sceneStack.add(scene);
 		setActiveScene(scene);
 	}
+
 	public void popScene(){
 		if (sceneStack.empty()){
 			System.out.println("scene stack empty you cannot pop");

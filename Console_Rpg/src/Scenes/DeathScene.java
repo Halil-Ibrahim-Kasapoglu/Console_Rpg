@@ -20,20 +20,16 @@ public class DeathScene extends Scene{
     }
 
     @Override
-    protected void InitializeSceneCommands() {
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("revive", new KernelRunnable() {@Override public void process(String[] params){ReviveCommand();}}));
-        super.InitializeSceneCommands();
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
         System.out.println(deathMessage);
         System.out.println("Careful next time. Don't forget every death cost you");
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
     }
 
     private void ReviveCommand(){

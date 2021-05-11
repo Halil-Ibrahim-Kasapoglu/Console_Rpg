@@ -18,36 +18,28 @@ import java.util.Random;
 
 public class EnemyInteraction extends Scene {
 
+    // FIXME: 11.05.2021 you might want to fix me later
+
     private Enemy enemy;
 
-    private boolean onFight = false;
-
-    public EnemyInteraction(){
-        super();
+    @Override
+    public void OnSceneCreated() {
+        super.OnSceneCreated();
         this.enemy = Enemy.generateRandomEnemy();
     }
 
     @Override
-    protected void InitializeSceneCommands() {
-        sceneCommands.add(new KernelCommand("attack", new KernelRunnable() {@Override public void process(String[] params){AttackCommand();}}));
-        sceneCommands.add(new KernelCommand("ignore", new KernelRunnable() {@Override public void process(String[] params){IgnoreCommand();}}));
-
-        super.InitializeSceneCommands();
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
+        System.out.println("You have encountered with an enemy called " + enemy.name);
+        System.out.println(enemy);
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
-        DisplayEncounterMessage();
-
-    }
-
-    private void DisplayEncounterMessage(){
-        System.out.println("You have encountered with an enemy called " + enemy.name);
-        System.out.println(enemy);
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
+        sceneCommands.add(new KernelCommand("attack", new KernelRunnable() {@Override public void process(String[] params){AttackCommand();}}));
+        sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     private void DisplayFightStatus(){
@@ -71,7 +63,7 @@ public class EnemyInteraction extends Scene {
                 @Override
                 public void process(String[] params) {
                     System.out.println("Canimizi zor kurtardik");
-                    IgnoreCommand();
+                    DismissScene();
                 }
             }));
         }else {
@@ -83,7 +75,7 @@ public class EnemyInteraction extends Scene {
             sceneCommands.add(new KernelCommand("leave", new KernelRunnable() {
                 @Override
                 public void process(String[] params) {
-                    IgnoreCommand();
+                    DismissScene();
                 }
             }));
         }
@@ -93,7 +85,6 @@ public class EnemyInteraction extends Scene {
     }
 
     private void SimulateCommand(){
-
         while (enemy.isAlive() && UserManager.Master().getActivePlayer().isAlive()){
             HitCommand();
         }
@@ -124,13 +115,8 @@ public class EnemyInteraction extends Scene {
 
     }
 
-    private void IgnoreCommand(){
-        SceneManager.Master().popScene();
-    }
     private void AttackCommand(){
-        onFight = true;
         DisplayFightStatus();
-        //System.out.println("not implemented");
     }
 
 }

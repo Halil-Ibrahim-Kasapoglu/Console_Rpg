@@ -10,22 +10,19 @@ import Scenes.StoreScenes.StoreScene;
 public class HomeScene extends Scene{
 
     @Override
-    protected void InitializeSceneCommands() {
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("travel", new KernelRunnable() {@Override public void process(String[] params){TravelCommand();}}));
         sceneCommands.add(new KernelCommand("inventory", new KernelRunnable() {@Override public void process(String[] params){InventoryCommand();}}));
         sceneCommands.add(new KernelCommand("store", new KernelRunnable() {@Override public void process(String[] params){StoreCommand();}}));
         sceneCommands.add(new KernelCommand("library", new KernelRunnable() {@Override public void process(String[] params){LibraryCommand();}}));
-        sceneCommands.add(new KernelCommand("mainmenu", new KernelRunnable() {@Override public void process(String[] params){MainMenu();}}));
-        super.InitializeSceneCommands();
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
         System.out.println("Adventure calling out to you");
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
     }
 
     private void TravelCommand(){
@@ -38,7 +35,5 @@ public class HomeScene extends Scene{
         SceneManager.Master().pushScene(new StoreScene());
     }
     private void LibraryCommand() {SceneManager.Master().pushScene(new LibraryScene());}
-    private void MainMenu(){
-        SceneManager.Master().popScene();
-    }
+
 }

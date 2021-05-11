@@ -11,26 +11,20 @@ import Scenes.Scene;
 public class StoreScene extends Scene {
 
     @Override
-    protected void InitializeSceneCommands() {
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("foods", new KernelRunnable() {@Override public void process(String[] params){FoodCommand();}}));
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
-        super.InitializeSceneCommands();
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
         System.out.println("Welcome to store where you can buy some stuff");
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
     }
 
     private void FoodCommand(){
         SceneManager.Master().pushScene(new FoodStoreScene());
-    }
-    private void BackCommand(){
-        SceneManager.Master().popScene();
     }
 
 }

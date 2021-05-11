@@ -19,72 +19,55 @@ public class InventoryScene extends Scene{
 
     // FIXME: 9.05.2021 allah rizasi icin bu sayfayi duzenleyin
 
-    public InventoryScene(){
-        super();
-        itemView = new MultipageView(5, rows());
-    }
-
     @Override
-    protected void InitializeSceneCommands() {
-        //sceneCommands.add(new KernelCommand("foods", new KernelRunnable() {@Override public void process(){FoodCommand();}}));
+    protected void LoadSceneCommands() {
+        super.LoadSceneCommands();
         sceneCommands.add(new KernelCommand("inspect", new KernelRunnable() {@Override public void process(String[] params){InspectItem(params);}} , new String[]{"row"}));
         sceneCommands.add(new KernelCommand("page", new KernelRunnable() {
             @Override
             public void process(String[] params) {
                 PageCommand(params);
             }
-        } , new String[]{"page"}));
-        sceneCommands.add(new KernelCommand("quicksellallunequipped", new KernelRunnable() {@Override public void process(String[] params){QuickSellAllUnequippedCommand();}}));
-        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){BackCommand();}}));
-        super.InitializeSceneCommands();
+        },new String[]{"page"}));
+        sceneCommands.add(new KernelCommand("quick_sell_all_unequipped", new KernelRunnable() {@Override public void process(String[] params){QuickSellAllUnequippedCommand();}}));
+        sceneCommands.add(new KernelCommand("back", new KernelRunnable() {@Override public void process(String[] params){DismissScene();}}));
     }
 
     @Override
-    public void OnLoad() {
-        super.OnLoad();
-
-        itemView.setRows(rows());
-        LoadContent(itemView.getCurrentPage());
+    public void OnSceneCreated() {
+        super.OnSceneCreated();
+        itemView = new MultipageView(5, rows());
     }
 
-    private void LoadContent(int page){
-        if (!itemView.loadPage(page)) return;
+    @Override
+    protected void OnSceneDraw() {
+        super.OnSceneDraw();
 
-        Kernel.Master().DisplayAvailableCommands();
-        System.out.println("=======================");
+        itemView.setRows(rows());
+        itemView.loadPage(itemView.getCurrentPage());
     }
 
     private ArrayList<String> rows(){
-
         ArrayList<String> rows = new ArrayList<String>();
-
         Inventory inventory = UserManager.Master().getActivePlayer().getInventory();
         for (Item item : inventory.getItemArrayList()){
             rows.add((inventory.isEquipped(item) ? "(+) " : "(o) ") + item.getName() );
         }
-
         return rows;
     }
 
     private Item GetItemFromInventory(int row){
-
         Inventory inventory = UserManager.Master().getActivePlayer().getInventory();
-
         int id = row - 1;
         return inventory.getItemArrayList().get(id);
     }
 
-    private void BackCommand(){
-        SceneManager.Master().popScene();
-    }
     private void InspectItem(String[] params){
-        int row;
-        try{
-            row = Integer.parseInt(params[0]);
-        }catch (NumberFormatException e){
-            System.out.println("row param must be integer");
+        if (! UtilityHelper.isNumeric(params[0])){
+            System.out.println("row param must be an integer");
             return;
         }
+        int row = Integer.parseInt(params[0]);
         if (row < 1 || row > itemView.getRowCnt()){
              System.out.println("no such item in row: " + row);
              return;
@@ -94,11 +77,9 @@ public class InventoryScene extends Scene{
 
     private void QuickSellAllUnequippedCommand(){
 
-        Inventory inventory = UserManager.Master().getActivePlayer().getInventory();
-
         int totalItemSold = 0;
         double totalPrice = 0;
-
+        Inventory inventory = UserManager.Master().getActivePlayer().getInventory();
         ArrayList<Item> itemsToSell = new ArrayList<Item>();
 
         for (Item item : inventory.getItemArrayList()){
@@ -111,30 +92,26 @@ public class InventoryScene extends Scene{
             totalPrice += item.getMarketPrice();
             totalItemSold += 1;
         }
-
         if (totalItemSold == 0){
             System.out.println("No unequipped item to sell");
             return;
         }
-
         System.out.println("Quick Sell Report");
         System.out.println("Item sold : " + totalItemSold);
         System.out.println("Total Output : " + UtilityHelper.Decimal2(totalPrice) + " money earned");
 
-        itemView = new MultipageView(5, rows());
-        LoadContent(1);
+        OnSceneDisplayed();
     }
 
     private void PageCommand(String[] params){
 
-        int page;
-        try {
-            page = Integer.parseInt(params[0]);
-        }catch (NumberFormatException e){
+        if (!UtilityHelper.isNumeric(params[0])){
             System.out.println("page param must be integer");
             return;
         }
+        int page = Integer.parseInt(params[0]);
         System.out.println("Changing page to " + page);
-        LoadContent(page);
+
+        itemView.loadPage(page);
     }
 }

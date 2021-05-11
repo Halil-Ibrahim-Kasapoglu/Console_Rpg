@@ -48,13 +48,19 @@ public class Kernel {
 		directCommands.add(new KernelCommand("!display", new KernelRunnable() {
 			@Override
 			public void process(String[] params) {
+				DisplayActiveScene();
+			}
+		}));
+		directCommands.add(new KernelCommand("!displayCommands", new KernelRunnable() {
+			@Override
+			public void process(String[] params) {
 				DisplayAvailableCommands();
 			}
 		}));
 		directCommands.add(new KernelCommand("!activeScene", new KernelRunnable() {
 			@Override
 			public void process(String[] params) {
-				DisplayActiveScene();
+				DisplayActiveSceneName();
 			}
 		}));
 		directCommands.add(new KernelCommand("!player", new KernelRunnable() {
@@ -129,10 +135,14 @@ public class Kernel {
 			System.out.println();
 			commandIndex++;
 		}
-		System.out.println("There are " + Integer.toString(availableCommands.size()) + " commands available");
+		//System.out.println("There are " + Integer.toString(availableCommands.size()) + " commands available");
 	}
 
 	public void DisplayActiveScene() {
+		SceneManager.Master().getActiveScene().OnSceneDisplayed();
+	}
+
+	public void DisplayActiveSceneName() {
 
 		String activeSceneClass = SceneManager.Master().getActiveScene().getClass().getName();
 		System.out.println("You are currently at " + activeSceneClass);
