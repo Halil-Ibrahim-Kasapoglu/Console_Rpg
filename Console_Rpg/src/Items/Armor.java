@@ -1,13 +1,17 @@
 package Items;
 
+import Manager.FileManager;
 import Utility.UtilityHelper;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Armor extends Item{
 
-	static final String[] armorNames = new String[]{"Great Wall Of China" , "Plate" , "Vest" , "Gambeson" , "Helmet" , "Aegis" , "T-shirt"};
-	static final String[] armorAdj = new String[]{"Ultra" , "Unstoppable" , "Bullet Proof" , "Gold" , "Silver" , "Bronze", "Cursed" , "Celestial" , "Damaged","Dark"};
+
+	static final ArrayList<String> armorAdj = FileManager.ReadFileAsArray("data/item/armor/adj.txt");
+	static final ArrayList<String> armorNames = FileManager.ReadFileAsArray("data/item/armor/noun.txt");
+
 
 	private double armor;
 

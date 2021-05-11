@@ -24,6 +24,7 @@ public class SceneManager{
 	}
 	public void setActiveScene(Scene activeScene) {
 		if (activeScene == null){
+			this.activeScene = null;
 			return;
 		}
 		this.activeScene = activeScene;

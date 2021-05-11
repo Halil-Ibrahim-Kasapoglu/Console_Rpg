@@ -4,6 +4,8 @@ import Manager.RandomManager;
 import Manager.UserManager;
 import Utility.UtilityHelper;
 
+import java.util.ArrayList;
+
 public class ItemManager {
 
     private static ItemManager _master;
@@ -20,13 +22,13 @@ public class ItemManager {
         return lastItemId;
     }
 
-    public static String GenerateRandomItemName(String[] adjectives , String nouns[]){
+    public static String GenerateRandomItemName(ArrayList<String> adjectives , ArrayList<String> nouns){
 
-        int nounsIndex = RandomManager.Random(0,nouns.length-1);
-        int adjectiveIndex = RandomManager.Random(0,adjectives.length-1);
+        int nounsIndex = RandomManager.Random(0,nouns.size()-1);
+        int adjectiveIndex = RandomManager.Random(0,adjectives.size()-1);
 
         String name = "";
-        name += adjectives[adjectiveIndex] + " " + nouns[nounsIndex];
+        name += adjectives.get(adjectiveIndex) + " " + nouns.get(nounsIndex);
 
         return name;
     }

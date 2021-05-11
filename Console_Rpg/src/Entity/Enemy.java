@@ -1,7 +1,10 @@
 package Entity;
 
+import Manager.FileManager;
 import Manager.RandomManager;
 import Manager.UserManager;
+
+import java.util.ArrayList;
 
 public class Enemy extends Entity{
 
@@ -20,7 +23,7 @@ public class Enemy extends Entity{
         return level;
     }
 
-    private static String[] enemyNames = new String[]{"Dark Lord" , "Goblin" , "Nightmare Johny" , "Soul of Revengeful Nature", "A Jar of Bugs" , "Canavar" , "Kangal"};
+    private final static ArrayList<String> enemyNames = FileManager.ReadFileAsArray("data/entity/enemy/noun.txt");
 
     public Enemy(String name, int damage , int health , int level){
         super();
@@ -32,7 +35,7 @@ public class Enemy extends Entity{
 
     public static Enemy generateRandomEnemy(){
 
-        String name = enemyNames[RandomManager.Random(0 , enemyNames.length - 1)];
+        String name = enemyNames.get(RandomManager.Random(0 , enemyNames.size() - 1));
         int level = Math.max(1 , UserManager.Master().getActivePlayer().getLevel() + RandomManager.Random(-5 , 5));
         int health = level * 5;
         int damage = level;

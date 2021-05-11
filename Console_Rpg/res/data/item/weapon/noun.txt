@@ -1,0 +1,21 @@
+Dagger
+Sword
+Mace
+Axe
+Spoon
+Pistol
+M-16
+G-3
+AWP
+Bec de corbin
+War hammer
+Flail
+Morning Star
+Katana
+Knife
+Longsword
+Partisan
+Military Fork
+Crossbow
+Mortar
+Catapult

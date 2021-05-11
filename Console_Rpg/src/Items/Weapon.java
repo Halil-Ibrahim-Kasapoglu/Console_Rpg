@@ -1,17 +1,19 @@
 package Items;
 
+import Manager.FileManager;
 import Manager.RandomManager;
 import Manager.UserManager;
 import Utility.UtilityHelper;
 import jdk.jshell.execution.Util;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 
 public class Weapon extends Item{
 
-	static final String[] weaponNames = new String[]{"Dagger" , "Sword" , "Mace" , "Axe" , "Spoon"};
-	static final String[] weaponAdj = new String[]{"Holy" , "Unstoppable" , "World Destroyer" , "Gold" , "Silver" , "Bronze", "Cursed"};
+	static final ArrayList<String> weaponAdj = FileManager.ReadFileAsArray("data/item/weapon/adj.txt");
+	static final ArrayList<String> weaponNames = FileManager.ReadFileAsArray("data/item/weapon/noun.txt");
 
 	private double damage;
 	public double getDamage() {
